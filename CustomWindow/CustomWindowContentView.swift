@@ -20,7 +20,7 @@ class CustomWindowContentView: NSView {
     
     var titleBar: CustomWindowTitleBarView!
     var titleBarHeight: CGFloat = 30
-    var backgroundColor: NSColor = NSColor.white {
+    var backgroundColor: NSColor = NSColor.clear {
         didSet {
             layer?.backgroundColor = backgroundColor.cgColor
         }
@@ -55,6 +55,7 @@ class CustomWindowContentView: NSView {
     
     func setup() {
         
+        self.layer?.masksToBounds = true
         wantsLayer = true
         titleBar = CustomWindowTitleBarView()
         self.addSubview(titleBar, positioned: .above, relativeTo: nil)
@@ -62,6 +63,7 @@ class CustomWindowContentView: NSView {
         
         titleBar.wantsLayer = true
         titleBar.layer?.backgroundColor = titleBarBackgroundColor.cgColor
+        titleBar.layer?.masksToBounds = true
         
         titleBar.closeBtn.target = self
         titleBar.closeBtn.action = #selector(close)
@@ -71,6 +73,8 @@ class CustomWindowContentView: NSView {
         
         titleBar.fullscreenBtn.target = self
         titleBar.fullscreenBtn.action = #selector(fullscreen)
+        
+        
     }
     
     func close() {
